@@ -1,0 +1,116 @@
+---
+title: "Lab 8 Report"
+author: "Evangelos Kassos"
+date: "4/14/2022"
+header-includes:
+   - \usepackage{float}
+   - \usepackage{siunitx}
+   - \usepackage{graphicx}
+   - \usepackage{subcaption}
+   - \usepackage{hhline}
+   - \setmainfont{KpRoman}
+   - \usepackage{booktabs}
+output:
+  pdf_document:
+    latex_engine: xelatex
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# source("lab8_starter_v2.R", local = knitr::knit_global())
+library("stargazer")
+```
+
+___Question 1.___ See code.
+
+___Question 2.___ See below for statistical model results.
+
+![]("mod1_importance.png"){width=48%}
+![]("mod2_importance.png"){width=48%}
+![]("mod3_importance.png"){width=48%}
+![]("mod4_importance.png"){width=48%}
+![]("mod5_importance.png"){width=48%}
+![]("mod6_importance.png"){width=48%}
+
+___Question 3.___ Based on the results presented below for the training sample, the root mean squared prediction error for the models that include patient race is higher compared to the respective models that do not include patient race for models concerning costs and health. The root mean squared prediction error for the model that includes patient race is lower compared to the respective model that does not include patient race for the models concerning avoidable costs.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|S[table-format=4.7]|S[table-format=4.7]|} 
+\hline
+\multicolumn{1}{|c|}{\textbf{Models}} & \multicolumn{1}{c|}{\textbf{RMSPE of model excluding race}} & \multicolumn{1}{c|}{\textbf{RMSPE of model including race}}  \\ 
+\hline
+\textit{1 \& 2 - Costs}               & 7718.129                                                & 8038.495                                                 \\ 
+\hline
+\textit{3 \& 4 - Health}              & 0.461                                                   & 0.465                                                    \\ 
+\hline
+\textit{5 \& 6 - Avoidable costs}     & 6234.884                                                & 6069.311                                                 \\
+\hline
+\end{tabular}
+\end{table}
+
+___Question 4.___ Based on the results presented below for the test sample, the root mean squared prediction error for the models that include patient race is lower compared to the respective models that do not include patient race for models concerning avoidable costs and health. The root mean squared prediction error for the model that includes patient race is higher compared to the respective model that does not include patient race for the models concerning costs.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|S[table-format=5.3]|S[table-format=5.3]|} 
+\hline
+\multicolumn{1}{|c|}{\textbf{Models}} & \multicolumn{1}{c|}{\textbf{RMSPE of model excluding race}} & \multicolumn{1}{c|}{\textbf{RMSPE of model including race}}  \\ 
+\hline
+\textit{1 \& 2 - Costs}               & 16275.504                                                   & 16297.990                                                    \\ 
+\hline
+\textit{3 \& 4 - Health}              & 1.061                                                       & 1.059                                                        \\ 
+\hline
+\textit{5 \& 6 - Avoidable costs}     & 12136.502                                                   & 12010.001                                                    \\
+\hline
+\end{tabular}
+\end{table}
+
+___Question 5.___ See code.
+
+___Question 6.___ See code.
+
+___Question 7a.___ 
+
+\begin{table}[h]
+  \centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Model}                         & \textbf{Fraction} \\ \hline
+Model 1 - Costs (excl. race)           & 0.5064806                                                                \\ \hline
+Model 2 - Costs (incl. race)           & 0.5264207                                                                \\ \hline
+Model 3 - Health (excl. race)          & 0.5804586                                                                \\ \hline
+Model 4 - Health (incl. race)          & 0.5884347                                                                \\ \hline
+Model 5 - Avoidable costs (excl. race) & 0.5339980                                                                \\ \hline
+Model 6 - Avoidable costs (incl. race) & 0.5804586                                                                \\ \hline
+\end{tabular}
+\end{table}
+
+___Question 7b.___
+
+\begin{table}[h]
+  \centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Model}                         & \textbf{Fraction} \\ \hline
+Model 1 - Costs (excl. race)           & 0.1282958                                                                \\ \hline
+Model 2 - Costs (incl. race)           & 0.1333468                                                                \\ \hline
+Model 3 - Health (excl. race)          & 0.1470425                                                                \\ \hline
+Model 4 - Health (incl. race)          & 0.1490630                                                                \\ \hline
+Model 5 - Avoidable costs (excl. race) & 0.1352662                                                                \\ \hline
+Model 6 - Avoidable costs (incl. race) & 0.1470351                                                                \\ \hline
+\end{tabular}
+\end{table}
+
+
+___Question 8.___ 
+
+![]("g1.png"){width=48%}
+![]("g2.png"){width=48%}
+![]("g3.png"){width=48%}
+![]("g4.png"){width=48%}
+![]("g5.png"){width=48%}
+![]("g6.png"){width=48%}
+
+___Question 9.___ Often times, algorithms are aimed at the wrong target to begin with. The result is a "label choice bias," arising from a mismatch between the ideal target the algorithm should be predicting, and a biased proxy variable the algorithm is actually predicting. Here we see some evidence of this bias: compare models 3 & 4 with models 1 & 2/5 & 6. We can see that the shape of the curves in risk score intervals (40, 75) is different, meaning that if we chose models 1 & 2/5 & 6 over models 3 & 4 we would get completely different results, categorizing a significantly different fraction of patients as with increased risk. Comparing the duos in each model category, along with our tables in question 7, we can also see that this is likely not due to the inclusion or exclusion of the race variable. 
